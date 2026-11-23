@@ -11,9 +11,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Xurliman/actum/backend/internal/config"
-	"github.com/Xurliman/actum/backend/internal/logging"
-	"github.com/Xurliman/actum/backend/internal/server"
+	"github.com/Xurliman/actum/backend/internal/pkg/config"
+	"github.com/Xurliman/actum/backend/internal/pkg/logging"
+	"github.com/Xurliman/actum/backend/internal/pkg/server"
 )
 
 const shutdownTimeout = 10 * time.Second

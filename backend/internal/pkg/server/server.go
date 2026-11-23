@@ -1,4 +1,4 @@
-// Package server never imports a feature package; cmd/api mounts feature routes on its router.
+// Package server never imports a module; cmd/api mounts module routes on its router.
 package server
 
 import (
@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/Xurliman/actum/backend/internal/apperrors"
+	"github.com/Xurliman/actum/backend/internal/pkg/apperrors"
 )
 
 func NewRouter() *chi.Mux {

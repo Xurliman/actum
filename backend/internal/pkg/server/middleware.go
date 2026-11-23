@@ -9,8 +9,8 @@ import (
 
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/Xurliman/actum/backend/internal/apperrors"
-	"github.com/Xurliman/actum/backend/internal/logging"
+	"github.com/Xurliman/actum/backend/internal/pkg/apperrors"
+	"github.com/Xurliman/actum/backend/internal/pkg/logging"
 )
 
 const requestIdHeader = "X-Request-Id"

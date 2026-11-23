@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/Xurliman/actum/backend/internal/apperrors"
+	"github.com/Xurliman/actum/backend/internal/pkg/apperrors"
 )
 
 type errorResponse struct {
