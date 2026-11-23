@@ -1,6 +1,8 @@
 DATABASE_URL ?= postgres://actum:actum@localhost:5432/actum?sslmode=disable
+export DATABASE_URL
+
 GOOSE = go run github.com/pressly/goose/v3/cmd/goose@v3.29.0
-goose_for = $(GOOSE) -dir internal/$(1)/migrations -table goose_$(1)_version postgres "$(DATABASE_URL)"
+goose_for = $(GOOSE) -dir internal/$(1)/migrations -table goose_$(1)_version postgres "$$DATABASE_URL"
 
 .PHONY: run migrate-up migrate-down
 
