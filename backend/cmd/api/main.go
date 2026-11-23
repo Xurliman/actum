@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/Xurliman/actum/backend/internal/pkg/config"
+	"github.com/Xurliman/actum/backend/internal/pkg/db"
 	"github.com/Xurliman/actum/backend/internal/pkg/logging"
 	"github.com/Xurliman/actum/backend/internal/pkg/server"
 )
@@ -35,6 +36,12 @@ func run() error {
 
 	ctx, restoreDefaultSignals := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer restoreDefaultSignals()
+
+	pool, err := db.Connect(ctx, cfg.DatabaseURL)
+	if err != nil {
+		return err
+	}
+	defer pool.Close()
 
 	srv := server.NewHTTPServer(cfg.HTTPAddr, server.NewRouter())
 

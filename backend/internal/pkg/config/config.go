@@ -1,27 +1,33 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"log/slog"
 	"os"
 )
 
 type Config struct {
-	HTTPAddr  string
-	LogLevel  slog.Level
-	LogFormat string
+	HTTPAddr    string
+	LogLevel    slog.Level
+	LogFormat   string
+	DatabaseURL string
 }
 
 func Load() (Config, error) {
 	cfg := Config{
-		HTTPAddr:  getenv("HTTP_ADDR", ":8080"),
-		LogFormat: getenv("LOG_FORMAT", "json"),
+		HTTPAddr:    getenv("HTTP_ADDR", ":8080"),
+		LogFormat:   getenv("LOG_FORMAT", "json"),
+		DatabaseURL: os.Getenv("DATABASE_URL"),
 	}
 	if err := cfg.LogLevel.UnmarshalText([]byte(getenv("LOG_LEVEL", "info"))); err != nil {
 		return Config{}, fmt.Errorf("config: parse LOG_LEVEL: %w", err)
 	}
 	if cfg.LogFormat != "text" && cfg.LogFormat != "json" {
 		return Config{}, fmt.Errorf("config: parse LOG_FORMAT: %q is not text or json", cfg.LogFormat)
+	}
+	if cfg.DatabaseURL == "" {
+		return Config{}, errors.New("config: read DATABASE_URL: not set")
 	}
 	return cfg, nil
 }
